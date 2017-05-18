@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/maintenance/task")
+@RequestMapping("/api/maintenance/tasks")
 public class MaintenanceTaskController {
 
     @Autowired
