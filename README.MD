@@ -17,3 +17,21 @@ Specification and requirements
  
  
  
+ #Maven
+ 
+ Package without running tests
+ 
+     package -Dmaven.test.skip=true
+ 
+ # Docker Image
+ 
+ ## Build 
+ 
+     docker build -t demonno/rentit-maintenance .
+     docker push demonno/rentit-maintenance
+ 
+ Image address: https://hub.docker.com/r/demonno/rentit-maintenance/
+ 
+ Pull Image
+ 
+     docker pull demonno/rentit-maintenance
