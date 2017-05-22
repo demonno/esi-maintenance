@@ -48,17 +48,13 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     public MaintenancePlanDTO correctiveMaintenance(PlantMaintenanceDTO plantMaintenance) {
 
-        //  Api Call To Rentit PS13
-        String reservationHref = "http://example.com";
-
-
         ExternalPlantReservationDTO plantReservationDTO = reservationService.createReservation(
                 PlantReservationDTO.of(plantMaintenance.getPlantId(), plantMaintenance.getMaintenancePeriod()));
 
         MaintenanceTask maintenanceTask = MaintenanceTask.createMaintenanceTask(
                 TypeOfWork.CORRECTIVE, plantMaintenance.getPrice(), plantMaintenance.getDescription(),
                 businessPeriodAssembler.toBusinessPeriod(plantMaintenance.getMaintenancePeriod()),
-                reservationHref);
+                plantReservationDTO.getLink("self").getHref());
         maintenanceTaskRepository.save(maintenanceTask);
 
         List<MaintenanceTask> taskList = new ArrayList<>();

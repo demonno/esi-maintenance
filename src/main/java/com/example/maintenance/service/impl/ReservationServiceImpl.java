@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,8 +23,6 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public ExternalPlantReservationDTO createReservation(PlantReservationDTO plantReservationDTO) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
         return restTemplate.postForObject(
                 BASE_RENTIT_URL + "/api/inventory/reservations",
