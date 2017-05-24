@@ -16,6 +16,7 @@ import com.example.maintenance.web.dto.PlantReservationDTO;
 import com.example.maintenance.web.dto.MaintenancePlanDTO;
 import com.example.maintenance.web.dto.MaintenanceTaskDTO;
 import com.example.maintenance.web.dto.PlantMaintenanceDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     @Transactional
     @Override
-    public MaintenancePlanDTO correctiveMaintenance(PlantMaintenanceDTO plantMaintenance) {
+    public MaintenancePlanDTO correctiveMaintenance(PlantMaintenanceDTO plantMaintenance) throws JsonProcessingException {
 
         ExternalPlantReservationDTO plantReservationDTO = reservationService.createReservation(
                 PlantReservationDTO.of(plantMaintenance.getPlantId(), plantMaintenance.getMaintenancePeriod()));

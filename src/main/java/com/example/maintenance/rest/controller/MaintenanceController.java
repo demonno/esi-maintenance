@@ -3,6 +3,7 @@ package com.example.maintenance.rest.controller;
 import com.example.maintenance.service.MaintenanceService;
 import com.example.maintenance.web.dto.MaintenancePlanDTO;
 import com.example.maintenance.web.dto.PlantMaintenanceDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class MaintenanceController {
 
     @PostMapping
     public ResponseEntity<MaintenancePlanDTO>
-    correctiveMaintenance(@RequestBody PlantMaintenanceDTO plantMaintenance) {
+    correctiveMaintenance(@RequestBody PlantMaintenanceDTO plantMaintenance) throws JsonProcessingException {
         MaintenancePlanDTO maintenancePlanDTO = maintenanceService.correctiveMaintenance(plantMaintenance);
         HttpHeaders headers = new HttpHeaders();
 
