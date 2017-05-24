@@ -3,14 +3,9 @@ package com.example.maintenance.service.impl;
 import com.example.maintenance.service.ReservationService;
 import com.example.maintenance.web.ExternalPlantReservationDTO;
 import com.example.maintenance.web.dto.PlantReservationDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
