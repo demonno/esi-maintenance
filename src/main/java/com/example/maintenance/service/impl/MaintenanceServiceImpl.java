@@ -1,5 +1,6 @@
 package com.example.maintenance.service.impl;
 
+import com.example.common.application.dto.BusinessPeriodDTO;
 import com.example.common.service.assembler.BusinessPeriodAssembler;
 import com.example.maintenance.domain.model.MaintenancePlan;
 import com.example.maintenance.domain.model.MaintenanceTask;
@@ -7,11 +8,15 @@ import com.example.maintenance.domain.model.TypeOfWork;
 import com.example.maintenance.domain.repository.MaintenancePlanRepository;
 import com.example.maintenance.domain.repository.MaintenanceTaskRepository;
 import com.example.maintenance.service.MaintenanceService;
+import com.example.maintenance.service.ReservationService;
 import com.example.maintenance.service.assembler.MaintenancePlanAssembler;
 import com.example.maintenance.service.assembler.MaintenanceTaskAssembler;
+import com.example.maintenance.web.ExternalPlantReservationDTO;
+import com.example.maintenance.web.dto.PlantReservationDTO;
 import com.example.maintenance.web.dto.MaintenancePlanDTO;
 import com.example.maintenance.web.dto.MaintenanceTaskDTO;
 import com.example.maintenance.web.dto.PlantMaintenanceDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +26,9 @@ import java.util.List;
 
 @Service
 public class MaintenanceServiceImpl implements MaintenanceService {
+
+    @Autowired
+    ReservationService reservationService;
 
     @Autowired
     MaintenancePlanRepository maintenancePlanRepository;
@@ -39,15 +47,15 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     @Transactional
     @Override
-    public MaintenancePlanDTO correctiveMaintenance(PlantMaintenanceDTO plantMaintenance) {
+    public MaintenancePlanDTO correctiveMaintenance(PlantMaintenanceDTO plantMaintenance) throws JsonProcessingException {
 
-        //  Api Call To Rentit PS13
-        String reservationHref = "http://example.com";
+        ExternalPlantReservationDTO plantReservationDTO = reservationService.createReservation(
+                PlantReservationDTO.of(plantMaintenance.getPlantId(), plantMaintenance.getMaintenancePeriod()));
 
         MaintenanceTask maintenanceTask = MaintenanceTask.createMaintenanceTask(
                 TypeOfWork.CORRECTIVE, plantMaintenance.getPrice(), plantMaintenance.getDescription(),
                 businessPeriodAssembler.toBusinessPeriod(plantMaintenance.getMaintenancePeriod()),
-                reservationHref);
+                plantReservationDTO.getLink("self").getHref());
         maintenanceTaskRepository.save(maintenanceTask);
 
         List<MaintenanceTask> taskList = new ArrayList<>();
