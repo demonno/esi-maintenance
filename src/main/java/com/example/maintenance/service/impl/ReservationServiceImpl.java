@@ -4,6 +4,7 @@ import com.example.maintenance.service.ReservationService;
 import com.example.maintenance.web.ExternalPlantReservationDTO;
 import com.example.maintenance.web.dto.PlantReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +18,9 @@ public class ReservationServiceImpl implements ReservationService{
     RestTemplate restTemplate;
 
 //    @Value("${rentit.baseurl}")
-//    final String BASE_RENTIT_URL = "http://193.40.11.150:8080";
-    final String BASE_RENTIT_URL = "http://localhost:3000";
+//    String BASE_RENTIT_URL;
+    final String BASE_RENTIT_URL = "http://193.40.11.150";
+//    final String BASE_RENTIT_URL = "http://localhost:3000";
     final String RENTIT_LOGIN_USERNAME = "secure";
     final String RENTIT_LOGIN_PASSWORD = "secure";
 
